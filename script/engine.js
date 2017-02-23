@@ -106,7 +106,6 @@
 			var version = "";
 			var pre = $('<p>')
 				.text("Please click the version you want")
-				.attr('id','newpart')
 				.prependTo('#wrapper');
 			$('<div>')
 				.attr('id','blech')
