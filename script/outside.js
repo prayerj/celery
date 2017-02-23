@@ -217,7 +217,7 @@ var Outside = {
 
 		new Button.Button({
 			id: 'walkTowardButton',
-			text: _("walk towards town"),
+			text: _("keep walking towards the town"),
 			click: Outside.walk,
 			width: '80px',
 			cooldown: Outside._GATHER_DELAY,

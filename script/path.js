@@ -40,7 +40,7 @@ var Path = {
 		}	
 		this.y_name = newname;
 		var rando = Math.random()
-		if( rando < 0.33) this.precond = 'B';
+		if( rando < 0.33) this.precond = "B";
 		else if (rando >= 0.33 && rando < 0.67) this.precond = 'D';
 		else { this.precond = 'N'; }
 
@@ -50,6 +50,11 @@ var Path = {
 		/*var outfitting = $('<div>').attr({'id': 'outfitting', 'data-legend': _('supplies:')}).appendTo(this.panel);
 		$('<div>').attr('id', 'bagspace').appendTo(outfitting);*/
 		
+
+		Notifications.notify(Path,_('There seems to be someone walking on the street not far away.'));
+		Notifications.notify(Path,_('{0} and the stranger notices each other at the same time.',Engine.x_name));
+		Notifications.notify(Path,_('The stranger walks to {0}, and makes a short introduction: "My name is {1}".',Engine.x_name,Path.y_name));
+		
 		// Add the embark button
 		new Button.Button({
 			id: 'finishButton',
@@ -58,52 +63,51 @@ var Path = {
 			width: '80px'
 		}).appendTo('div#pathPanel');
 		
-		new Button.Button({
-			id: 'introButton',
-			text: _("make an introduction"),
-			click: Path.intro,
-			width: '80px'
-		}).appendTo('div#pathPanel');
+		if(Engine.version == "full"){
+			new Button.Button({
+				id: 'introButton',
+				text: _("make an introduction"),
+				click: Path.intro,
+				width: '80px'
+			}).appendTo('div#pathPanel');
 
-		new Button.Button({
-			id: 'walkAroundPathButton',
-			text: _("walk around"),
-			click: Path.walkAround,
-			cooldown: 7,
-			width: '80px'
-		}).appendTo('div#pathPanel');
+			new Button.Button({
+				id: 'walkAroundPathButton',
+				text: _("walk around"),
+				click: Path.walkAround,
+				cooldown: 7,
+				width: '80px'
+			}).appendTo('div#pathPanel');
 
-		new Button.Button({
-			id: 'huntButton',
-			text: _("try to hunt it"),
-			click: Path.huntBunny,
-			width: '80px'
-		}).appendTo('div#pathPanel');
+			new Button.Button({
+				id: 'huntButton',
+				text: _("try to hunt it"),
+				click: Path.huntBunny,
+				width: '80px'
+			}).appendTo('div#pathPanel');
 
-		new Button.Button({
-			id: 'startFireButton',
-			text: _("start a fire"),
-			click: Path.startFire,
-			width: '80px'
-		}).appendTo('div#pathPanel');
+			new Button.Button({
+				id: 'startFireButton',
+				text: _("start a fire"),
+				click: Path.startFire,
+				width: '80px'
+			}).appendTo('div#pathPanel');
 
-		new Button.Button({
-			id: 'goodbyeButton',
-			text: _("say goodbye"),
-			click: Path.goodBye,
-			width: '80px'
-		}).appendTo('div#pathPanel');
-
+			new Button.Button({
+				id: 'goodbyeButton',
+				text: _("say goodbye"),
+				click: Path.goodBye,
+				width: '80px'
+			}).appendTo('div#pathPanel');
+			Path.updateButtons();
+		}
 		
-		Notifications.notify(Path,_('There seems to be someone walking on the street not far away.'));
-		Notifications.notify(Path,_('{0} and the stranger notices each other at the same time.',Engine.x_name));
-		Notifications.notify(Path,_('The stranger walks to {0}, and makes a short introduction: "My name is {1}".',Engine.x_name,Path.y_name));
 		
 
 		Path.outfit = $SM.get('outfit');
 		
 		Engine.updateSlider();
-		Path.updateButtons();
+		
 		//subscribe to stateUpdates
 		$.Dispatch('stateUpdate').subscribe(Path.handleStateUpdates);
 	},
@@ -141,8 +145,8 @@ var Path = {
 	intro: function(){
 		var introduction = $('#introButton.button');
 		introduction.hide();
-		Notifications.notify(Path,_('{0} says: “Hi, my name is {0}.”',Engine.x_name));
-		switch(this.precond){
+		Notifications.notify(Path,_('{0} says: \“Hi, my name is {0}\”',Engine.x_name));
+		switch(Path.precond){
 			case "B":
 				Notifications.notify(Path, _('{1} looks at {0} and says: "I cannot believe people as gorgeous as you actually exist."',Engine.x_name,Path.y_name));
 				break;
@@ -162,7 +166,7 @@ var Path = {
 	},
 
 	huntBunny: function(){
-		switch(this.precond){
+		switch(Path.precond){
 			case "B":
 				Notifications.notify(Path,_('{0} picks up a sharp stone and aims at it.',Engine.x_name));
 				Notifications.notify(Path,_('{0} hits it! The rabbit seems to faint.',Engine.x_name));
@@ -191,7 +195,7 @@ var Path = {
 	},
 
 	startFire: function(){
-		switch(this.precond){
+		switch(Path.precond){
 			case "B":
 				Notifications.notify(Path,_('{0} rubs the wood skillfully, and start the fire very easily.',Engine.x_name));
 				Notifications.notify(Path,_('{0} says: "You have a natural talent for this."',Path.y_name));
@@ -217,7 +221,7 @@ var Path = {
 	},
 
 	goodBye: function(){
-		switch(this.precond){
+		switch(Path.precond){
 			case "B":
 				Notifications.notify(Path,_('Before leaving, {0} says: "You are a wonderful person; I admire and respect you. Goodbye."',Path.y_name));
 				break;

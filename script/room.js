@@ -600,6 +600,20 @@ var Room = {
 		}).appendTo('div#roomPanel');
 
 		new Button.Button({
+			id: 'diaryDownButton',
+			text: _("put down the diary"),
+			click: Room.diaryInfo,
+			width: '80px'
+		}).appendTo('div#roomPanel');
+
+		new Button.Button({
+			id: 'fireplaceButton',
+			text: _("go back to the fireplace"),
+			click: Room.scary,
+			width: '80px'
+		}).appendTo('div#roomPanel');
+
+		new Button.Button({
 			id: 'windowButton',
 			text: _("move toward window"),
 			click: Room.moveWindow,
@@ -643,9 +657,10 @@ var Room = {
 		if($SM.get('game.builder.level') == 1 && $SM.get('stores.wood', true) < 0) {
 			Engine.setTimeout(Room.unlockForest, Room._NEED_WOOD_DELAY);
 		}*/
+		Notifications.notify(Room,_("It's midnight"));
 		Notifications.notify(Room,_("{0} wakes up in a dark room.", Engine.x_name));
 		Notifications.notify(Room,_("{0} can hardly remember what happened before",Engine.x_name));
-		Notifications.notify(Room,_("It's midnight"));
+		
 		
 		Notifications.notify(Room, _("The room is {0}. {1} is curled up on the ground", Room.TempEnum.fromInt($SM.get('game.temperature.value')).text, Engine.x_name));
 	},
@@ -718,6 +733,8 @@ var Room = {
 		var diary = $('#diaryButton.button');
 		var moveWin = $('#windowButton.button');
 		var sit = $('#sitButton.button');
+		var df = $('#diaryDownButton.button');
+		var fp = $('#fireplaceButton.button');
 		if($SM.get('game.fire.value') == Room.FireEnum.Dead.value && stoke.css('display') != 'none') {
 			stoke.hide();
 			door.hide();
@@ -733,6 +750,8 @@ var Room = {
 			diary.hide();
 			moveWin.hide();
 			sit.hide();
+			df.hide();
+			fp.hide();
 			if(stoke.hasClass('disabled')) {
 				Button.cooldown(light);
 			}
@@ -980,14 +999,17 @@ var Room = {
 				Notifications.notify(Room,_('{0} doesn’t have a great need to be liked or admired by other people.',Engine.x_name));
 		}
 		var diary = $('#diaryButton.button');
+		var df = $('#diaryDownButton.button');
+		df.show();
 		diary.hide();
 		//add new timer first
-		Room._baseTimer = Engine.setTimeout(Room.diaryInfo,3*1000);
+		
 		
 	},
 
 	diaryInfo: function(){
-		window.clearTimeout(Engine._baseTimer);
+		var df = $('#diaryDownButton.button');
+		df.hide();
 		Notifications.notify(Room,_('Based on the diary entries, it seems that the travelers leave this diary to other people who might also stay in this cabin.'));
 		Notifications.notify(Room,_('{0} knows a lot of details the traveler from the diary. {0} feels close to the traveler.',Engine.x_name));
 		if(!Engine.flipped){
@@ -995,9 +1017,10 @@ var Room = {
 			Notifications.notify(Room,_('{0} has found it unwise to be too frank in revealing self to others.',Engine.x_name));
 		} else {
 			Notifications.notify(Room,_('If given a chance, {0} might also happily write a very high self-disclosure diary and leave it somewhere for other people to read.',Engine.x_name));
-			Notifications.notify(Room,_('{0} doesn’t have found it unwise to be very frank in revealing self to others.',Engine.x_name));
+			Notifications.notify(Room,_('{0} doesn’t find it unwise to be very frank in revealing self to others.',Engine.x_name));
 		}
-		Room._baseTimer = Engine.setTimeout(Room.enableButton.bind(null,'scary'),5*1000);
+		var fp = $('#fireplaceButton.button');
+		fp.show();
 	},
 
 	scary: function(){
@@ -1010,6 +1033,8 @@ var Room = {
 				Notifications.notify(Room,_('Security does not matter that much for {0}.',Engine.x_name));
 		}
 		var moveWin = $('#windowButton.button');
+		var fp = $('#fireplaceButton.button');
+		fp.hide();
 		moveWin.show();
 	},
 

@@ -103,7 +103,24 @@
 			var flipped=false;
 			var res = [];
 			var cond = "";
-			Engine.loadCondition();
+			var version = "";
+			var pre = $('<p>')
+				.text("Please click the version you want")
+				.attr('id','newpart')
+				.prependTo('#wrapper');
+			$('<div>')
+				.attr('id','blech')
+				.appendTo(pre);
+			$('<input>')
+				.attr('type','button')
+				.attr('onclick','Engine.loadConditionFull()')
+				.attr('value','full')
+				.appendTo('#blech');
+			$('<input>')
+				.attr('type','button')
+				.attr('onclick','Engine.loadConditionExcerpt()')
+				.attr('value','excerpt')
+				.appendTo('#blech');
 			
 		},
 
@@ -809,7 +826,31 @@
 
 		},
 
-		loadCondition: function(){
+		loadConditionFull: function(){
+			Engine.version = "full";
+			var newpart = $('<p>')
+				.text("Please click the number and letters on the note you got.")
+				.attr('id','newpart')
+				.prependTo('#wrapper');
+			$('<div>')
+				.attr('id','blah')
+				.appendTo(newpart);
+			$('<input>')
+				.attr('type','button')
+				.attr('onclick','Engine.condOne()')
+				.attr('value','One')
+				.attr('id', 'butOne')
+				.appendTo('#blah');
+			$('<input>')
+				.attr('type','button')
+				.attr('onclick','Engine.condTwo()')
+				.attr('value','Two')
+				.attr('id', 'butTwo')
+				.appendTo('#blah');
+		},
+
+		loadConditionExcerpt: function(){
+			Engine.version = "excerpt";
 			var newpart = $('<p>')
 				.text("Please click the number and letters on the note you got.")
 				.attr('id','newpart')
@@ -977,26 +1018,29 @@
 				.text('Welcome to A Dark Room')
 				.prependTo('#wrapper');
 			if(Engine.cond[1] == 'A'){
-					switch(Engine.cond[0]){
-						case '1':
-							$('<p>')
-								.text('Based on the personality test, we have generated a virtual representation whose personality differs from yours.')
-								.appendTo('#title');
-							break;
-						case '2':
-							$('<p>')
-								.text('Based on the personality test, we have generated a virtual representation whose personality is similar to yours.')
-								.appendTo('#title');
-						default:
-							break;
-					}
-				} else {
-					$('<p>')
-						.text(_('This is a story about {0}\'s strange experiences in a new world.',Engine.x_name))
-						.appendTo('#title');
-			}
+				switch(Engine.cond[0]){
+					case '1':
+						$('<p>')
+							.text('Based on the personality test, we have generated a virtual representation whose personality differs from yours.')
+							.appendTo('#title');
+						break;
+					case '2':
+						$('<p>')
+							.text('Based on the personality test, we have generated a virtual representation whose personality is similar to yours.')
+							.appendTo('#title');
+					default:
+						break;
+				}
+			//} else {
+				$('<p>')
+					.text(_('This is a story about {0}\'s strange experiences in a new world.',Engine.x_name))
+					.appendTo('#title');
+			//}
 			$('<p>')
-				.text('This game is called \“A dark room\”. It is a new production from a Swedish indie game company BJÖRN. The game company has a good reputation in industry, and have a focus on adventure game. The former works of this company includes: Firewatch, Wailing Heights, the Eyes of Ara, The Kunci Experiment, etc. This experiment is a small scale beta test for this game. The game is still developing, so an excerpt of game narrative is being test in this study. The storyline is about a virtual character’s adventure in a brand new world, without any clues about what is happening. The character starts to explore the world from the very beginning, and will gradually find out what the new world is like.')
+				.text('This game is called \“A dark room\”. It is a new production from a Swedish indie game company BJÖRN. The game company has a good reputation in industry, and have a focus on adventure game.')
+				.appendTo('#title');
+			$('<p>')
+				.text('The former works of this company includes: Firewatch, Wailing Heights, the Eyes of Ara, The Kunci Experiment, etc. This experiment is a small scale beta test for this game. The game is still developing, so an excerpt of game narrative is being test in this study. The storyline is about a virtual character’s adventure in a brand new world, without any clues about what is happening. The character starts to explore the world from the very beginning, and will gradually find out what the new world is like.')
 				.appendTo('#title');
 			await sleep(5000);
 			$('<input>')
@@ -1149,10 +1193,18 @@
 				.attr('id','survey')
 				.text("Thank you for participating in this experiment! Please finish this survey before leaving.")
 				.appendTo('#wrapper');
-			$('<a>')
-				.attr('href','https://mediaillinois.co1.qualtrics.com/SE/?SID=SV_37r3We8C1VpeZSZ')
-				.text("Click here!")
+			if(Engine.version == "full"){
+				$('<a>')
+					.attr('href','https://mediaillinois.co1.qualtrics.com/SE/?SID=SV_37r3We8C1VpeZSZ')
+					.text("Click here!")
 				.appendTo('#survey');
+			} else {
+				$('<a>')
+					.attr('href','https://mediaillinois.co1.qualtrics.com/SE/?SID=SV_0xD69FMJIFUdn6Z')
+					.text("Click here!")
+				.appendTo('#survey');
+			}
+			
 		},
 
 	};
