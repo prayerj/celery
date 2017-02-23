@@ -106,6 +106,7 @@
 			var version = "";
 			var pre = $('<p>')
 				.text("Please click the version you want")
+				.attr('id', "initial")
 				.prependTo('#wrapper');
 			$('<div>')
 				.attr('id','blech')
@@ -826,6 +827,7 @@
 		},
 
 		loadConditionFull: function(){
+			$('#initial').remove();
 			Engine.version = "full";
 			var newpart = $('<p>')
 				.text("Please click the number and letters on the note you got.")
@@ -849,6 +851,7 @@
 		},
 
 		loadConditionExcerpt: function(){
+			$('#initial').remove();
 			Engine.version = "excerpt";
 			var newpart = $('<p>')
 				.text("Please click the number and letters on the note you got.")
