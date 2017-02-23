@@ -1030,7 +1030,7 @@
 					default:
 						break;
 				}
-			//} else {
+			} //else {
 				$('<p>')
 					.text(_('This is a story about {0}\'s strange experiences in a new world.',Engine.x_name))
 					.appendTo('#title');
@@ -1046,8 +1046,7 @@
 				.attr('type','button')
 				.attr('onclick','Engine.ready()')
 				.attr('value','Start')
-				.appendTo('#title');
-				
+				.appendTo('#title');	
 		},
 
 		ready: function(){
