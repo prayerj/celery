@@ -104,6 +104,7 @@
 			var res = [];
 			var cond = "";
 			var version = "";
+			var precond = "";
 			var pre = $('<p>')
 				.text("Please click the version you want")
 				.attr('id', "initial")
@@ -829,6 +830,66 @@
 		loadConditionFull: function(){
 			$('#initial').remove();
 			Engine.version = "full";
+			var bdn = $('<p>')
+					.text('Please select the ending configuration you would like.')	
+					.attr('id','bdn')
+					.prependTo('#wrapper');
+			var choices = $('<div>')
+					.appendTo(bdn);
+			$('<label>')
+				.attr('for','bchoice')
+				.text('B')
+				.appendTo(choices);
+			$('<input>')
+				.attr('type','radio')
+				.attr('name','bdnSelect')
+				.attr('id','bchoice')
+				.attr('value','b')
+				.appendTo(choices);
+			$('<label>')
+				.attr('for','dchoice')
+				.text('D')
+				.appendTo(choices);
+			$('<input>')
+				.attr('type','radio')
+				.attr('name','bdnSelect')
+				.attr('id','dchoice')
+				.attr('value','d')
+				.appendTo(choices);
+			$('<label>')
+				.attr('for','nchoice')
+				.text('N')
+				.appendTo(choices);
+			$('<input>')
+				.attr('type','radio')
+				.attr('name','bdnSelect')
+				.attr('id','nchoice')
+				.attr('value','n')
+				.appendTo(choices);
+			$('<input>')
+				.attr('type','button')
+				.attr('onclick','Engine.loadFullNumVar()')
+				.attr('value','Submit')
+				.appendTo(choices);
+			
+		},
+
+		loadFullNumVar: function(){
+			var last = $('input[name=bdnSelect]:checked').val();
+			switch(last){
+				case "b":
+					Engine.precond = 'B';
+					break;
+				case "d":
+					Engine.precond = 'D';
+					break;
+				case "n":
+					Engine.precond = 'N';
+					break;
+				default:
+					break;
+			}
+			$('#bdn').remove();
 			var newpart = $('<p>')
 				.text("Please click the number and letters on the note you got.")
 				.attr('id','newpart')
@@ -848,6 +909,7 @@
 				.attr('value','Two')
 				.attr('id', 'butTwo')
 				.appendTo('#blah');
+
 		},
 
 		loadConditionExcerpt: function(){
@@ -1033,18 +1095,18 @@
 					default:
 						break;
 				}
-			} //else {
-				$('<p>')
-					.text(_('This is a story about {0}\'s strange experiences in a new world.',Engine.x_name))
-					.appendTo('#title');
-			//}
+			}
 			$('<p>')
 				.text('This game is called \“A dark room\”. It is a new production from a Swedish indie game company BJÖRN. The game company has a good reputation in industry, and have a focus on adventure game.')
 				.appendTo('#title');
 			$('<p>')
 				.text('The former works of this company includes: Firewatch, Wailing Heights, the Eyes of Ara, The Kunci Experiment, etc. This experiment is a small scale beta test for this game. The game is still developing, so an excerpt of game narrative is being test in this study. The storyline is about a virtual character’s adventure in a brand new world, without any clues about what is happening. The character starts to explore the world from the very beginning, and will gradually find out what the new world is like.')
 				.appendTo('#title');
+			$('<p>')
+					.text(_('This is a story about {0}\'s strange experiences in a new world.',Engine.x_name))
+					.appendTo('#title');
 			await sleep(5000);
+
 			$('<input>')
 				.attr('type','button')
 				.attr('onclick','Engine.ready()')

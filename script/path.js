@@ -39,10 +39,6 @@ var Path = {
 			newname =people[Math.floor(Math.random() * people.length)];
 		}	
 		this.y_name = newname;
-		var rando = Math.random()
-		if( rando < 0.33) this.precond = "B";
-		else if (rando >= 0.33 && rando < 0.67) this.precond = 'D';
-		else { this.precond = 'N'; }
 
 		this._baseTimer = null;
 		
@@ -146,7 +142,7 @@ var Path = {
 		var introduction = $('#introButton.button');
 		introduction.hide();
 		Notifications.notify(Path,_('{0} says: \“Hi, my name is {0}\”',Engine.x_name));
-		switch(Path.precond){
+		switch(Engine.precond){
 			case "B":
 				Notifications.notify(Path, _('{1} looks at {0} and says: "I cannot believe people as gorgeous as you actually exist."',Engine.x_name,Path.y_name));
 				break;
@@ -166,7 +162,7 @@ var Path = {
 	},
 
 	huntBunny: function(){
-		switch(Path.precond){
+		switch(Engine.precond){
 			case "B":
 				Notifications.notify(Path,_('{0} picks up a sharp stone and aims at it.',Engine.x_name));
 				Notifications.notify(Path,_('{0} hits it! The rabbit seems to faint.',Engine.x_name));
@@ -195,7 +191,7 @@ var Path = {
 	},
 
 	startFire: function(){
-		switch(Path.precond){
+		switch(Engine.precond){
 			case "B":
 				Notifications.notify(Path,_('{0} rubs the wood skillfully, and start the fire very easily.',Engine.x_name));
 				Notifications.notify(Path,_('{0} says: "You have a natural talent for this."',Path.y_name));
@@ -221,15 +217,15 @@ var Path = {
 	},
 
 	goodBye: function(){
-		switch(Path.precond){
+		switch(Engine.precond){
 			case "B":
-				Notifications.notify(Path,_('Before leaving, {0} says: "You are a wonderful person; I admire and respect you. Goodbye."',Path.y_name));
+				Notifications.notify(Path,_('Before leaving, {0} says: \"You are a wonderful person; I admire and respect you. Goodbye\"',Path.y_name));
 				break;
 			case "D":
-				Notifications.notify(Path,_('Before leaving, {0} says: "You are such a terrible person. I cannot see any value in you. Goodbye."',Path.y_name));
+				Notifications.notify(Path,_('Before leaving, {0} says: \"You are such a terrible person. I cannot see any value in you. Goodbye\"',Path.y_name));
 				break;
 			case "N":
-				Notifications.notify(Path,_('{0} says: "Goodbye."',Path.y_name));
+				Notifications.notify(Path,_('{0} says: \"Goodbye\"',Path.y_name));
 				break;
 			default:
 				break;
