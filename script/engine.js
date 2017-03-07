@@ -1081,11 +1081,21 @@
 				.addClass('persText')
 				.text('Welcome to A Dark Room')
 				.prependTo('#wrapper');
+			
+			$('<p>')
+				.text('This game is called \“A dark room\”. It is a new production from a Swedish indie game company BJÖRN. The game company has a good reputation in industry, and have a focus on adventure game.')
+				.appendTo('#title');
+			$('<p>')
+				.text('The former works of this company includes: Firewatch, Wailing Heights, the Eyes of Ara, The Kunci Experiment, etc. This experiment is a small scale beta test for this game. The game is still developing, so an excerpt of game narrative is being test in this study. The storyline is about a virtual character’s adventure in a brand new world, without any clues about what is happening. The character starts to explore the world from the very beginning, and will gradually find out what the new world is like.')
+				.appendTo('#title');
+			$('<p>')
+				.text(_('This is a story about {0}\'s strange experiences in a new world.',Engine.x_name))
+				.appendTo('#title');
 			if(Engine.cond[1] == 'A'){
 				switch(Engine.cond[0]){
 					case '1':
 						$('<p>')
-							.text('Based on the personality test, we have generated a virtual representation whose personality differs from yours.')
+							.text('Based on the personality test, we have generated a virtual representation whose personality is similar from yours.')
 							.appendTo('#title');
 						break;
 					case '2':
@@ -1096,15 +1106,6 @@
 						break;
 				}
 			}
-			$('<p>')
-				.text('This game is called \“A dark room\”. It is a new production from a Swedish indie game company BJÖRN. The game company has a good reputation in industry, and have a focus on adventure game.')
-				.appendTo('#title');
-			$('<p>')
-				.text('The former works of this company includes: Firewatch, Wailing Heights, the Eyes of Ara, The Kunci Experiment, etc. This experiment is a small scale beta test for this game. The game is still developing, so an excerpt of game narrative is being test in this study. The storyline is about a virtual character’s adventure in a brand new world, without any clues about what is happening. The character starts to explore the world from the very beginning, and will gradually find out what the new world is like.')
-				.appendTo('#title');
-			$('<p>')
-					.text(_('This is a story about {0}\'s strange experiences in a new world.',Engine.x_name))
-					.appendTo('#title');
 			await sleep(5000);
 
 			$('<input>')
